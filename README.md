@@ -1,6 +1,19 @@
 # git clone , commit , push , pull working 
 
+|||||||||||||||||||||||||||||meveo git working |||||||||||||||||||||||||||||||||||||||||||||
 
+cd D:\meveodata\default\git
+mkdir customer
+cd customer
+
+git init --bare .git
+touch .git/git-daemon-export-ok
+
+http://localhost:9090/mygitserver/HelloWorld
+
+git clone http://localhost:9090/mygitserver/git/customer
+
+--------note : port : 9090 ----------------
 
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -----------------cartweb2-----------------------
@@ -20,19 +33,10 @@ touch .git/git-daemon-export-ok
 
 git clone http://localhost:9090/cartweb2/git/afs
 
---------------------------
-git clone http://localhost:9090/cartweb2/git/inventory
-
--------------------------------------------------------------------
-http://meveo.admin:meveo@localhost:8080/meveo/git/inventory
-https://github.com/masumcse1/gitlearn.git
-
 
 |||||||||||||||||||||||gitservers|||||||||||||||||||||||||||||||||||||||||||||
 
 default reposity : :          D:\meveodata\default\git
-                              
-
 with project module :         D:\meveodata\default\git\afs
 
 
@@ -61,17 +65,6 @@ http://localhost:8080/gitservers/HelloWorld
 http://localhost:8080/gitservers/git/customer
 
 ###############################################
-
-## behaviour Gitclient --790 : 800 line 
-
- impact golo ki 
- 
- //  errro hole commit is not working for above line
- 
- 
- -------------------------repository path----------------------------
- meveodata/default/git/inventory
- D:\meveodata\default\git\inventory
 
 
 http://meveo.admin:meveo@localhost:8080/meveo/git/inventory
