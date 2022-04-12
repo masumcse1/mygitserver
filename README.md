@@ -45,4 +45,12 @@ git clone http://localhost:9090/gitservers/git/inventory
 
 |||||||||||||||||||||||||||||||||||||||||||||||
 
+#######################create a new repository on the command line
+
+git init
+add/commit 
+git remote add origin https://github.com/masumcse1/mygitserver.git
+git branch -M main
+git push -u origin main
+
 
