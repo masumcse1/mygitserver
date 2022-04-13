@@ -13,6 +13,8 @@ http://localhost:9090/mygitserver/HelloWorld
 
 git clone http://localhost:9090/mygitserver/git/customer
 
+git clone http://masum:mypass@localhost:9090/mygitserver/git/customer
+
 --------note : port : 9090 ----------------
 
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
