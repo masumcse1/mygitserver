@@ -25,12 +25,7 @@ import java.util.*;
 import static org.eclipse.jgit.transport.SideBandOutputStream.CH_ERROR;
 import static org.eclipse.jgit.transport.SideBandOutputStream.MAX_BUF;
 
-/**
- * Servlet enabling git through HTTP(s)
- * 
- * @author clement.bareth
- * @lastModifiedVersion 6.4.0
- */
+
 @WebServlet(urlPatterns = "/git/*")
 public class MeveoGitServlet extends GitServlet {
 
