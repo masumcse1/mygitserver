@@ -80,7 +80,7 @@ public class MyevoGitServlet extends GitServlet {
 		
 		
 		 try {
-			 req.login("masum","suma");
+			 req.login("masum","mypass");
 	       } catch (ServletException e) {
 	           System.out.println(e.getMessage());
 	          
