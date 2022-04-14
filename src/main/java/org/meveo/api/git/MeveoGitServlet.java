@@ -27,7 +27,7 @@ import static org.eclipse.jgit.transport.SideBandOutputStream.MAX_BUF;
 
 
 @WebServlet(urlPatterns = "/git/*")
-public class MeveoGitServlet extends GitServlet {
+public class MyevoGitServlet extends GitServlet {
 
 	private static Map<String, GitActionType> SERVICE_ROLE_MAPPING = new HashMap<>();
 
