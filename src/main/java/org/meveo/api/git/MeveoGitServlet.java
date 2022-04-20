@@ -11,6 +11,8 @@ import org.meveo.service.git.GitClient;
 import org.meveo.service.git.GitHelper;
 import org.slf4j.Logger;
 
+import mygit.MyReceivePackFactory;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -27,7 +29,7 @@ import static org.eclipse.jgit.transport.SideBandOutputStream.MAX_BUF;
 
 
 @WebServlet(urlPatterns = "/git/*")
-public class MyevoGitServlet extends GitServlet {
+public class MeveoGitServlet extends GitServlet {
 
 	private static Map<String, GitActionType> SERVICE_ROLE_MAPPING = new HashMap<>();
 
@@ -69,8 +71,8 @@ public class MyevoGitServlet extends GitServlet {
 			}
 		};
 
-		setReceivePackFactory(new MeveoReceivePackFactory());
-
+		setReceivePackFactory(new MyReceivePackFactory());
+		
 		super.init(servletConfig);
 	}
 
@@ -80,7 +82,7 @@ public class MyevoGitServlet extends GitServlet {
 		
 		
 		 try {
-			 req.login("masum","mypass");
+			 req.login("masum","suma");
 	       } catch (ServletException e) {
 	           System.out.println(e.getMessage());
 	          

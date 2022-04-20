@@ -1,5 +1,16 @@
 # git clone , commit , push , pull working 
 
+
+
+
+
+
+---------------- PUsh error generated.
+ 
+ git checkout makeerrorfrompush
+
+git clone -b  makeerrorfrompush  https://github.com/masumcse1/mygitserver.git
+
 |||||||||||||||||||||||||||||meveo git working |||||||||||||||||||||||||||||||||||||||||||||
 
 cd D:\meveodata\default\git
