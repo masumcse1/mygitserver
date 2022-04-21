@@ -9,7 +9,7 @@ import org.eclipse.jgit.transport.SideBandOutputStream;
 
 import org.meveo.service.git.GitClient;
 import org.meveo.service.git.GitHelper;
-import org.slf4j.Logger;
+
 
 import mygit.MyReceivePackFactory;
 
