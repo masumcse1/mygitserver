@@ -162,25 +162,7 @@ public class MeveoGitServlet extends GitServlet {
 			return;
 		}
 
-		// Do not let the git server send directly the response, in case an observer
-		// raise an exception
-		FakeServletResponse fakeServletResponse = new FakeServletResponse(res);
 
-		try {
-			// Return the file list
-			if (gitActionType == GitActionType.GET) {
-				req.getRequestDispatcher("/pages/admin/files/files.xhtml?folder=git" + req.getPathInfo()).forward(req,
-						res);
-			} else {
-				super.service(req, res);
-			}
-
-		} catch (Exception e) {
-
-			System.out.println("Git error" + e.getMessage());
-			sendErrorToClient(res, e);
-			return;
-		}
 
 		// Fire commit received event and rollback if an exception was raised
 		if (gitActionType == GitActionType.WRITE && req.getMethod().equals("POST")) {
@@ -190,6 +172,8 @@ public class MeveoGitServlet extends GitServlet {
 				// Set<String> modifiedFiles = gitClient.getModifiedFiles(diffs);
 				// gitRepositoryCommitedEvent.fire(new CommitEvent(gitRepository, modifiedFiles,
 				// diffs));
+				
+				int i=1/0;
 
 			} catch (Exception e) {
 				try {
@@ -208,6 +192,27 @@ public class MeveoGitServlet extends GitServlet {
 
 			}
 
+		}
+		
+		
+		// Do not let the git server send directly the response, in case an observer
+		// raise an exception
+		FakeServletResponse fakeServletResponse = new FakeServletResponse(res);
+
+		try {
+			// Return the file list
+			if (gitActionType == GitActionType.GET) {
+				req.getRequestDispatcher("/pages/admin/files/files.xhtml?folder=git" + req.getPathInfo()).forward(req,
+						res);
+			} else {
+				super.service(req, res);
+			}
+
+		} catch (Exception e) {
+
+			System.out.println("Git error" + e.getMessage());
+			sendErrorToClient(res, e);
+			return;
 		}
 
 		if (res.getStatus() != 500) {
@@ -250,7 +255,7 @@ public class MeveoGitServlet extends GitServlet {
 			cause = cause.getCause();
 		}
 
-		sideBandOutputStream.write(Constants.encode(cause.getMessage() + "\n"));
+		sideBandOutputStream.write(Constants.encode("fardeen100"+ "\n"));
 		sideBandOutputStream.flush();
 
 		packetLineOut.end();
