@@ -1,4 +1,3 @@
-
 package org.meveo.api.git;
 
 import org.eclipse.jgit.http.server.GitServlet;
@@ -9,7 +8,8 @@ import org.eclipse.jgit.transport.SideBandOutputStream;
 
 import org.meveo.service.git.GitClient;
 import org.meveo.service.git.GitHelper;
-import org.slf4j.Logger;
+
+import mygit.MyReceivePackFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -27,7 +27,7 @@ import static org.eclipse.jgit.transport.SideBandOutputStream.MAX_BUF;
 
 
 @WebServlet(urlPatterns = "/git/*")
-public class MyevoGitServlet extends GitServlet {
+public class MeveoGitServlet extends GitServlet {
 
 	private static Map<String, GitActionType> SERVICE_ROLE_MAPPING = new HashMap<>();
 
@@ -69,8 +69,10 @@ public class MyevoGitServlet extends GitServlet {
 			}
 		};
 
-		setReceivePackFactory(new MeveoReceivePackFactory());
+        //setReceivePackFactory(new MeveoReceivePackFactory());
 
+		setReceivePackFactory(new MyReceivePackFactory());
+		
 		super.init(servletConfig);
 	}
 
@@ -80,7 +82,7 @@ public class MyevoGitServlet extends GitServlet {
 		
 		
 		 try {
-			 req.login("masum","mypass");
+			 req.login("masum","fardeen");
 	       } catch (ServletException e) {
 	           System.out.println(e.getMessage());
 	          
@@ -163,22 +165,16 @@ public class MyevoGitServlet extends GitServlet {
 		// Do not let the git server send directly the response, in case an observer
 		// raise an exception
 		FakeServletResponse fakeServletResponse = new FakeServletResponse(res);
-
 		try {
-			// Return the file list
-			if (gitActionType == GitActionType.GET) {
-				req.getRequestDispatcher("/pages/admin/files/files.xhtml?folder=git" + req.getPathInfo()).forward(req,
-						res);
-			} else {
-				super.service(req, res);
-			}
+			super.service(req, res);
 
 		} catch (Exception e) {
 
-			System.out.println("Git error" + e.getMessage());
+			System.out.println("Git error------------#####" + e.getMessage());
 			sendErrorToClient(res, e);
 			return;
 		}
+		
 
 		// Fire commit received event and rollback if an exception was raised
 		if (gitActionType == GitActionType.WRITE && req.getMethod().equals("POST")) {
@@ -188,15 +184,17 @@ public class MyevoGitServlet extends GitServlet {
 				// Set<String> modifiedFiles = gitClient.getModifiedFiles(diffs);
 				// gitRepositoryCommitedEvent.fire(new CommitEvent(gitRepository, modifiedFiles,
 				// diffs));
+				System.out.println("git operation running...");
+				int i=1/0;
 
 			} catch (Exception e) {
 				try {
 
 					System.out.println("Error raised after commit, rolling back to previous commit" + e.getMessage());
-					RevCommit headCommit = gitClient.getHeadCommit(gitRepository);
-					gitClient.reset(gitRepository, headCommit.getParent(0));
+				//	RevCommit headCommit = gitClient.getHeadCommit(gitRepository);
+				//	gitClient.reset(gitRepository, headCommit.getParent(0));
 
-					sendErrorToClient(res, e);
+					//sendErrorToClient(res, e);
 
 				} catch (Exception ex) {
 
@@ -207,6 +205,10 @@ public class MyevoGitServlet extends GitServlet {
 			}
 
 		}
+		
+		
+	
+	
 
 		if (res.getStatus() != 500) {
 			try {
@@ -248,7 +250,7 @@ public class MyevoGitServlet extends GitServlet {
 			cause = cause.getCause();
 		}
 
-		sideBandOutputStream.write(Constants.encode(cause.getMessage() + "\n"));
+		sideBandOutputStream.write(Constants.encode(cause.getMessage()+"--fardeen100"+ "\n"));
 		sideBandOutputStream.flush();
 
 		packetLineOut.end();

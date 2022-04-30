@@ -17,6 +17,8 @@
 package org.meveo.api.git;
 
 
+import java.text.MessageFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jgit.api.Git;
@@ -24,11 +26,14 @@ import org.eclipse.jgit.api.ResetCommand.ResetType;
 import org.eclipse.jgit.http.server.resolver.DefaultReceivePackFactory;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.transport.PostReceiveHook;
+import org.eclipse.jgit.transport.ReceiveCommand;
 import org.eclipse.jgit.transport.ReceivePack;
+import org.eclipse.jgit.transport.ReceiveCommand.Result;
 import org.eclipse.jgit.transport.resolver.ServiceNotAuthorizedException;
 import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * Factory instantiating a post receive web-hook that reset files onto head commit
@@ -40,14 +45,31 @@ public class MeveoReceivePackFactory extends DefaultReceivePackFactory {
 
 
     private static final PostReceiveHook updateRefHook = (rp, commands) -> {
-        try (Git git = new Git(rp.getRepository())){
-            git.reset().setMode(ResetType.HARD).call();
-        } catch (Exception e) {
-            
-            System.out.println("Error updating files"+e.getMessage());
-        }
+    	
+		/*
+		 * try (Git git = new Git(rp.getRepository())){
+		 * git.reset().setMode(ResetType.HARD).call(); } catch (Exception e) {
+		 * 
+		 * System.out.println("Error updating files"+e.getMessage()); }
+		 */
+    	
+    	for (ReceiveCommand cmd : commands) {
+			sendRejection(cmd, "Push rejected due to error !", "customer");
+		}
+		return;
+    	
+       
 
     };
+    
+    
+    public static void sendRejection(final ReceiveCommand cmd, final String why, Object... objects) {
+    	System.out.println("--------------------push rejectio error------------");
+		String text;
+		text = MessageFormat.format(why, objects);
+		cmd.setResult(Result.REJECTED_OTHER_REASON, text);
+		
+	}
 
     @Override
     public ReceivePack create(HttpServletRequest req, Repository db) throws ServiceNotEnabledException, ServiceNotAuthorizedException {
